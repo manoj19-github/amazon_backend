@@ -1,9 +1,11 @@
-import { IUser } from '../interfaces/user.interface';
+import { IUser, IUserAuthenticateMethods } from '../interfaces/user.interface';
 import { Euser } from '../interfaces/user.interface';
-import { Schema, model } from 'mongoose';
+import { Schema, model, Model } from 'mongoose';
 import bcrypt from 'bcrypt';
 import validator from 'validator';
-const UserSchema = new Schema<IUser>({
+
+type UserModel = Model<IUser, {}, IUserAuthenticateMethods>;
+const UserSchema = new Schema<IUser, UserModel, IUserAuthenticateMethods>({
 	username: { type: String, required: true, trim: true },
 	password: { type: String, required: true, trim: true },
 	address: { type: String, default: '', trim: true },

@@ -9,3 +9,8 @@ export interface IUser {
 	address: string;
 	usertype: Euser;
 }
+
+
+export interface IUserAuthenticateMethods {
+	authenticate(password: string): Promise<boolean>;
+}
