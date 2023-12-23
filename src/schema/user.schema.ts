@@ -4,9 +4,9 @@ import { Schema, model } from 'mongoose';
 import bcrypt from 'bcrypt';
 import validator from 'validator';
 const UserSchema = new Schema<IUser>({
-	username: { type: String, required: true },
-	password: { type: String, required: true },
-	address: { type: String, default: '' },
+	username: { type: String, required: true, trim: true },
+	password: { type: String, required: true, trim: true },
+	address: { type: String, default: '', trim: true },
 	usertype: { type: String, default: Euser.user },
 	email: {
 		type: String,

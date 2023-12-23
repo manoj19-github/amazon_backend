@@ -1,5 +1,7 @@
+import { Request } from 'express';
+
 export interface RequestWithUser extends Request {
-	user: any;
+	user?: any;
 	body: any;
 }
 export interface IUser {
