@@ -47,8 +47,8 @@ class AuthController {
 
 			// create a  jsonwebtoken  to signin the user
 			const jwtToken = await JWT.sign({ id: userExists._id }, process.env.JWT_SECRET!);
-			const userWithToken = { ...userExists, token: jwtToken };
-			return res.status(200).json({ user: userWithToken, message: 'Login successfull' });
+
+			return res.status(200).json({ user: userExists, token: jwtToken, message: 'Login successfull' });
 		} catch (error) {
 			console.log(error);
 			next(error);
