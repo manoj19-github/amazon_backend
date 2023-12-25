@@ -1,3 +1,4 @@
+import { RequestWithUser } from '@/interfaces/auth.interface';
 import { DATABASE } from '../../schema';
 import { HttpException } from '../exceptions/http.exceptions';
 import { Request, Response, NextFunction } from 'express';
@@ -49,6 +50,19 @@ class AuthController {
 			const jwtToken = await JWT.sign({ id: userExists._id }, process.env.JWT_SECRET!);
 
 			return res.status(200).json({ user: userExists, token: jwtToken, message: 'Login successfull' });
+		} catch (error) {
+			console.log(error);
+			next(error);
+		}
+	}
+	async getUser(req: RequestWithUser, res: Response, next: NextFunction) {
+		try {
+			console.log(req.user);
+			const userId = req.user?.id;
+			if (!userId) throw new HttpException(400, 'User not exists');
+			const currUser = await DATABASE.userSchema.findById(userId);
+			if (!currUser) throw new HttpException(400, 'User not found');
+			return res.status(200).json({ user: currUser, message: 'Login successfull' });
 		} catch (error) {
 			console.log(error);
 			next(error);

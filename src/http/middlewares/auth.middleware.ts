@@ -9,7 +9,8 @@ const authMiddleware = async (req: RequestWithUser, res: Response, next: NextFun
 			const userToken = req.headers.authorization.split(' ')[1];
 			if (userToken) {
 				const decoded: any = JWT.verify(userToken, process.env.JWT_SECRET!);
-				req.user = await DATABASE.userSchema.findById(decoded._id);
+
+				req.user = decoded;
 				next();
 			} else {
 				return res.status(403).json({
