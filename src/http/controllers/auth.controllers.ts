@@ -47,7 +47,7 @@ class AuthController {
 			if (!isPasswordValid) throw new HttpException(400, 'Password is incorrect');
 
 			// create a  jsonwebtoken  to signin the user
-			const jwtToken = await JWT.sign({ id: userExists._id }, process.env.JWT_SECRET!);
+			const jwtToken = await JWT.sign({ id: userExists._id, usertype: userExists.usertype }, process.env.JWT_SECRET!);
 
 			return res.status(200).json({ user: userExists, token: jwtToken, message: 'Login successfull' });
 		} catch (error) {
